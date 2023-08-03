@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Include correct version of FastReport.DataVisualization for .NET Core 3.0 or greater after resolving FastReport.Compat -->
+  <Target Name="_FR_DataVisualization_AddReference" AfterTargets="_FR_Compat_AddReference" >
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="FastReport.DataVisualization after _FR_Compat_AddReference"/>
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="FrameworkReference: '@(FrameworkReference)'"/>
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="ResolvedFrameworkReference: '@(ResolvedFrameworkReference)'"/>
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="TargetFrameworkVersion: '$(TargetFrameworkVersion)'"/>
+
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="_UseWindowsDesktopSDK in DataVisualization: $(_UseWindowsDesktopSDK)"/>
+
+    <ItemGroup Condition="!$(_UseWindowsDesktopSDK)">
+      <Reference Include="$(MSBuildThisFileDirectory)lib\Any\FastReport.DataVisualization.dll" />
+    </ItemGroup>
+    <!-- We don't include lib\Win\FastReport.DataVisualization.dll for .NET 5 or greater, 
+    because for .NET 5 Windows we use library in net5.0-windows7.0 folder -->
+    <ItemGroup Condition="$(_UseWindowsDesktopSDK) And $(TargetFrameworkVersion[1]) == '3'">
+      <Reference Include="$(MSBuildThisFileDirectory)lib\Win\FastReport.DataVisualization.dll" />
+    </ItemGroup>
+
+    <Message Importance="high" Condition="$(_frDebug) == 'true'" Text="References: '@(Reference)'"/>
+  </Target>
+
+</Project>

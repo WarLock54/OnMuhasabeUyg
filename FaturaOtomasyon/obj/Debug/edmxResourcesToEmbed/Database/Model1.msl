@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CariDemoModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Firma">
+      <EntityTypeMapping TypeName="CariDemoModel.Firma">
+        <MappingFragment StoreEntitySet="Firma">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirmaUnvan" ColumnName="FirmaUnvan" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+          <ScalarProperty Name="VergiAdres" ColumnName="VergiAdres" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="Sil" ColumnName="Sil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teklif">
+      <EntityTypeMapping TypeName="CariDemoModel.Teklif">
+        <MappingFragment StoreEntitySet="Teklif">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Indirim" ColumnName="Indirim" />
+          <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+          <ScalarProperty Name="FirmaId" ColumnName="FirmaId" />
+          <ScalarProperty Name="Odendi" ColumnName="Odendi" />
+          <ScalarProperty Name="BasTarih" ColumnName="BasTarih" />
+          <ScalarProperty Name="GecerlilikTarih" ColumnName="GecerlilikTarih" />
+          <ScalarProperty Name="Bilgilendirme" ColumnName="Bilgilendirme" />
+          <ScalarProperty Name="TeklifDurum" ColumnName="TeklifDurum" />
+          <ScalarProperty Name="UrunBaslik" ColumnName="UrunBaslik" />
+          <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeklifDurum">
+      <EntityTypeMapping TypeName="CariDemoModel.TeklifDurum">
+        <MappingFragment StoreEntitySet="TeklifDurum">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Adi" ColumnName="Adi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

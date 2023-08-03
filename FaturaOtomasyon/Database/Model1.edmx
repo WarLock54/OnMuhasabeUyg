@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CariDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Firma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaUnvan" Type="nvarchar(max)" />
+          <Property Name="Adres" Type="nvarchar(max)" />
+          <Property Name="VergiNo" Type="nvarchar(max)" />
+          <Property Name="VergiAdres" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Telefon" Type="nvarchar(max)" />
+          <Property Name="AdSoyad" Type="nvarchar(max)" />
+          <Property Name="Sil" Type="bit" />
+        </EntityType>
+        <EntityType Name="Teklif">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Indirim" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Miktar" Type="int" />
+          <Property Name="FirmaId" Type="int" />
+          <Property Name="Odendi" Type="bit" />
+          <Property Name="BasTarih" Type="date" />
+          <Property Name="GecerlilikTarih" Type="date" />
+          <Property Name="Bilgilendirme" Type="nvarchar(max)" />
+          <Property Name="TeklifDurum" Type="int" />
+          <Property Name="UrunBaslik" Type="nvarchar(max)" />
+          <Property Name="UrunFiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TeklifDurum">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Teklif_Firma">
+          <End Role="Firma" Type="Self.Firma" Multiplicity="0..1" />
+          <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firma">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teklif">
+              <PropertyRef Name="FirmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teklif_TeklifDurum">
+          <End Role="TeklifDurum" Type="Self.TeklifDurum" Multiplicity="0..1" />
+          <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeklifDurum">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teklif">
+              <PropertyRef Name="TeklifDurum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CariDemoModelStoreContainer">
+          <EntitySet Name="Firma" EntityType="Self.Firma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teklif" EntityType="Self.Teklif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeklifDurum" EntityType="Self.TeklifDurum" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Teklif_Firma" Association="Self.FK_Teklif_Firma">
+            <End Role="Firma" EntitySet="Firma" />
+            <End Role="Teklif" EntitySet="Teklif" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teklif_TeklifDurum" Association="Self.FK_Teklif_TeklifDurum">
+            <End Role="TeklifDurum" EntitySet="TeklifDurum" />
+            <End Role="Teklif" EntitySet="Teklif" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CariDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Firma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaUnvan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VergiAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdSoyad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sil" Type="Boolean" />
+          <NavigationProperty Name="Teklif" Relationship="Self.FK_Teklif_Firma" FromRole="Firma" ToRole="Teklif" />
+        </EntityType>
+        <EntityType Name="Teklif">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Indirim" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Miktar" Type="Int32" />
+          <Property Name="FirmaId" Type="Int32" />
+          <Property Name="Odendi" Type="Boolean" />
+          <Property Name="BasTarih" Type="DateTime" Precision="0" />
+          <Property Name="GecerlilikTarih" Type="DateTime" Precision="0" />
+          <Property Name="Bilgilendirme" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TeklifDurum" Type="Int32" />
+          <Property Name="UrunBaslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunFiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Firma" Relationship="Self.FK_Teklif_Firma" FromRole="Teklif" ToRole="Firma" />
+          <NavigationProperty Name="TeklifDurum1" Relationship="Self.FK_Teklif_TeklifDurum" FromRole="Teklif" ToRole="TeklifDurum" />
+        </EntityType>
+        <EntityType Name="TeklifDurum">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teklif" Relationship="Self.FK_Teklif_TeklifDurum" FromRole="TeklifDurum" ToRole="Teklif" />
+        </EntityType>
+        <Association Name="FK_Teklif_Firma">
+          <End Role="Firma" Type="Self.Firma" Multiplicity="0..1" />
+          <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firma">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teklif">
+              <PropertyRef Name="FirmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teklif_TeklifDurum">
+          <End Role="TeklifDurum" Type="Self.TeklifDurum" Multiplicity="0..1" />
+          <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeklifDurum">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teklif">
+              <PropertyRef Name="TeklifDurum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Firma" EntityType="Self.Firma" />
+          <EntitySet Name="Teklif" EntityType="Self.Teklif" />
+          <EntitySet Name="TeklifDurum" EntityType="Self.TeklifDurum" />
+          <AssociationSet Name="FK_Teklif_Firma" Association="Self.FK_Teklif_Firma">
+            <End Role="Firma" EntitySet="Firma" />
+            <End Role="Teklif" EntitySet="Teklif" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teklif_TeklifDurum" Association="Self.FK_Teklif_TeklifDurum">
+            <End Role="TeklifDurum" EntitySet="TeklifDurum" />
+            <End Role="Teklif" EntitySet="Teklif" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CariDemoModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Firma">
+            <EntityTypeMapping TypeName="CariDemoModel.Firma">
+              <MappingFragment StoreEntitySet="Firma">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirmaUnvan" ColumnName="FirmaUnvan" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="VergiAdres" ColumnName="VergiAdres" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Sil" ColumnName="Sil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teklif">
+            <EntityTypeMapping TypeName="CariDemoModel.Teklif">
+              <MappingFragment StoreEntitySet="Teklif">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Indirim" ColumnName="Indirim" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="FirmaId" ColumnName="FirmaId" />
+                <ScalarProperty Name="Odendi" ColumnName="Odendi" />
+                <ScalarProperty Name="BasTarih" ColumnName="BasTarih" />
+                <ScalarProperty Name="GecerlilikTarih" ColumnName="GecerlilikTarih" />
+                <ScalarProperty Name="Bilgilendirme" ColumnName="Bilgilendirme" />
+                <ScalarProperty Name="TeklifDurum" ColumnName="TeklifDurum" />
+                <ScalarProperty Name="UrunBaslik" ColumnName="UrunBaslik" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeklifDurum">
+            <EntityTypeMapping TypeName="CariDemoModel.TeklifDurum">
+              <MappingFragment StoreEntitySet="TeklifDurum">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

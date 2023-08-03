@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CariDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Firma">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirmaUnvan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VergiNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VergiAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AdSoyad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sil" Type="Boolean" />
+    <NavigationProperty Name="Teklif" Relationship="Self.FK_Teklif_Firma" FromRole="Firma" ToRole="Teklif" />
+  </EntityType>
+  <EntityType Name="Teklif">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Indirim" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Miktar" Type="Int32" />
+    <Property Name="FirmaId" Type="Int32" />
+    <Property Name="Odendi" Type="Boolean" />
+    <Property Name="BasTarih" Type="DateTime" Precision="0" />
+    <Property Name="GecerlilikTarih" Type="DateTime" Precision="0" />
+    <Property Name="Bilgilendirme" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TeklifDurum" Type="Int32" />
+    <Property Name="UrunBaslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UrunFiyat" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Firma" Relationship="Self.FK_Teklif_Firma" FromRole="Teklif" ToRole="Firma" />
+    <NavigationProperty Name="TeklifDurum1" Relationship="Self.FK_Teklif_TeklifDurum" FromRole="Teklif" ToRole="TeklifDurum" />
+  </EntityType>
+  <EntityType Name="TeklifDurum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Teklif" Relationship="Self.FK_Teklif_TeklifDurum" FromRole="TeklifDurum" ToRole="Teklif" />
+  </EntityType>
+  <Association Name="FK_Teklif_Firma">
+    <End Role="Firma" Type="Self.Firma" Multiplicity="0..1" />
+    <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Firma">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teklif">
+        <PropertyRef Name="FirmaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teklif_TeklifDurum">
+    <End Role="TeklifDurum" Type="Self.TeklifDurum" Multiplicity="0..1" />
+    <End Role="Teklif" Type="Self.Teklif" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TeklifDurum">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teklif">
+        <PropertyRef Name="TeklifDurum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Firma" EntityType="Self.Firma" />
+    <EntitySet Name="Teklif" EntityType="Self.Teklif" />
+    <EntitySet Name="TeklifDurum" EntityType="Self.TeklifDurum" />
+    <AssociationSet Name="FK_Teklif_Firma" Association="Self.FK_Teklif_Firma">
+      <End Role="Firma" EntitySet="Firma" />
+      <End Role="Teklif" EntitySet="Teklif" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teklif_TeklifDurum" Association="Self.FK_Teklif_TeklifDurum">
+      <End Role="TeklifDurum" EntitySet="TeklifDurum" />
+      <End Role="Teklif" EntitySet="Teklif" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

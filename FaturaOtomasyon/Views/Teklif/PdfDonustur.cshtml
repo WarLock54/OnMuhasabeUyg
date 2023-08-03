@@ -1,0 +1,19 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <h2>PdfDonustur</h2>
+        </div>
+        <div class="content-body">
+            @ViewBag.WebReport.GetHtml()
+        </div>
+    </div>
+</div>

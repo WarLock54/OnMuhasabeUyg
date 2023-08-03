@@ -1,0 +1,48 @@
+﻿@model FaturaOtomasyon.Database.TeklifDurum
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Teklif Durum Guncelle</h2>
+
+
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <h4 class="card-title">Teklif Durum </h4>
+        </div>
+        <div class="content-body">
+            <section class="invoice-list-wrapper">
+                <div class="card">
+
+                    <form action="~/Teklif/TeklifDurumGuncelle" method="post" class="form form-vertical">
+                        @Html.HiddenFor(x =>  x.Id)
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+
+                                        <label>
+                                            Adi
+                                        </label>
+                                        @Html.TextBoxFor(x => x.Adi, new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Teklif Durum Guncelle</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

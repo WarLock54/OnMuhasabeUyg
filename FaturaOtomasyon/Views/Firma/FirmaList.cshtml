@@ -1,0 +1,217 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FirmaList</h2>
+
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- users list start -->
+            <section class="app-user-list">
+
+                <!-- list and filter start -->
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <h4 class="card-title">Search & Filter</h4>
+                        <div class="row">
+                            <div class="d-flex justify-content-between align-items-center header-actions mx-2 row mt-75">
+                                <div class="col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-lg-8 ps-xl-75 ps-0">
+                                    <div class="dt-action-buttons d-flex align-items-center justify-content-center justify-content-lg-end flex-lg-nowrap flex-wrap">
+                                        <div class="me-1">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <form action="/Firma/Arama" method="post">
+                                                <label>Arama:</label>
+                                                <input type="text" class="form-control" name="FirmaUnvan"  aria-controls="DataTables_Table_0">
+                                            </form>
+                                                </div>
+
+                                        </div>
+                                        <div class="dt-buttons d-inline-flex mt-50">
+                                            <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal" data-bs-target="#modals-slide-in"><span>Firma Ekle</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-datatable table-responsive pt-0">
+                        <table class="user-list-table table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th></th>
+                                    <th>FirmaUnvan</th>
+                                    <th>AdSoyad</th>
+                                    <th>Telefon</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in @ViewBag.Get)
+                                {
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        @item.FirmaUnvan
+                                    </td>
+                                    <td>
+                                        @item.AdSoyad
+                                    </td>
+                                    <td>
+                                        @item.Telefon
+                                    </td>
+                                    <td>
+                                        @item.Email
+                                    </td>
+
+                                    <td style="">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical font-small-4"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a>
+                                        <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a href="@Url.Action("GetFirmafById", "Firma", new { id = item.Id })" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text font-small-4 me-50"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Güncelle</a>
+                                        <a href="@Url.Action("FirmaSil", "", new { id = item.Id })" class="dropdown-item delete-record"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 font-small-4 me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>Sil</a>
+                                                                          </div>
+                                        </div>
+                                    </td>
+
+
+
+
+
+                                  
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Modal to add new user starts-->
+                    <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
+                        <div class="modal-dialog">
+                            <form class="add-new-user modal-content pt-0" method="post" action="/Firma/FirmaEkle">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                                <div class="modal-header mb-1">
+                                    <h5 class="modal-title" id="exampleModalLabel">Firma Ekle</h5>
+                                </div>
+                                <div class="modal-body flex-grow-1">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-fullname">Firma Ünvan</label>
+                                        <input type="text"
+                                               class="form-control dt-full-name"
+                                               id="basic-icon-default-fullname"
+                                               placeholder=""
+                                               name="FirmaUnvan" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-fullname">Adres</label>
+                                        <input type="text"
+                                               class="form-control "
+                                               name="Adres" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-fullname">VergiNo</label>
+                                        <input type="text"
+                                               class="form-control "
+                                               name="VergiNo" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-fullname">VergiAdres</label>
+                                        <input type="text"
+                                               class="form-control "
+                                               name="VergiAdres" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-fullname">Ad Soyad</label>
+                                        <input type="text"
+                                               class="form-control dt-full-name"
+                                               id="basic-icon-default-fullname"
+                                               placeholder="John Doe"
+                                               name="AdSoyad" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-email">Email</label>
+                                        <input type="email"
+                                               id="basic-icon-default-email"
+                                               class="form-control dt-email"
+                                               placeholder="john.doe@example.com"
+                                               name="Email" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="basic-icon-default-contact">Telefon</label>
+                                        <input type="tel"
+                                               id="basic-icon-default-contact"
+                                               class="form-control dt-contact"
+                                               placeholder="(609) 933-44-22"
+                                               name="Telefon" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary me-1 data-submit">Firma Ekle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Modal to add new user Ends-->
+                </div>
+                <!-- list and filter end -->
+            </section>
+            <!-- users list ends -->
+
+        </div>
+    </div>
+</div>
+@*
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <section class="invoice-list-wrapper">
+                    <div class="card">
+                        <div class="card-datatable table-responsive">
+                            <table class="invoice-list-table table">
+                                <thead>
+                                    <tr>
+
+
+                                        <th>FirmaUnvan</th>
+                                        <th class="text-truncate">Email</th>
+                                        <th>Telefon</th>
+                                        <th>Adres</th>
+                                        <th>Durum</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Get)
+                                    {
+
+                                        <tr>
+                                            <td>@item.FirmaUnvan</td>
+
+                                            <td>@item.Email</td>
+                                            <td>@item.Telefon</td>
+                                            <td>@item.Adres</td>
+                                            <td>
+
+                                                <a href="@Url.Action("GetFirmafById", "Firma", new { id = item.Id })"><button class="btn btn-warning">Güncelle</button></a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>*@
